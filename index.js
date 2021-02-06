@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const kleur = require("kleur");
 const Table = require("cli-table3");
 const prompts = require("prompts");
 
@@ -39,7 +40,12 @@ const questions = [
 ];
 
 (async () => {
-  const { host, port, user, password, database } = await prompts(questions);
+  console.log(kleur.cyan().bold("Press ESC to quit"));
+  const { host, port, user, password, database } = await prompts(questions, {
+    onCancel: () => {
+      process.exit(1);
+    },
+  });
 
   const knex = require("knex")({
     client: "mysql",
@@ -47,7 +53,7 @@ const questions = [
       host,
       port,
       user,
-      password: password ?? "",
+      password,
       database,
     },
   });
@@ -114,6 +120,7 @@ const questions = [
 
               console.clear();
               console.log("Table: ", table);
+              console.log("Table length: ", res.length);
               console.log(display.toString());
             });
 
@@ -129,6 +136,7 @@ const questions = [
                 });
 
                 console.log("Table: ", table);
+                console.log("Table length: ", res.length);
                 console.log(display.toString());
               });
           }, frequency * 1000);
