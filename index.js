@@ -9,23 +9,27 @@ const questions = [
     name: "host",
     message: "Host:",
     initial: "127.0.0.1",
+    validate: (value) => (value === " " ? "Host can't be empty" : true),
   },
   {
     type: "number",
     name: "port",
     message: "Port:",
     initial: 3306,
+    validate: (value) => (value === " " ? "Port can't be empty" : true),
   },
   {
     type: "text",
     name: "database",
     message: "Database:",
+    validate: (value) => (value === " " ? "Database can't be empty" : true),
   },
   {
     type: "text",
     name: "user",
     message: "Username:",
     initial: "root",
+    validate: (value) => (value === " " ? "Username can't be empty" : true),
   },
   {
     type: "password",
@@ -43,7 +47,7 @@ const questions = [
       host,
       port,
       user,
-      password,
+      password: password ?? "",
       database,
     },
   });
