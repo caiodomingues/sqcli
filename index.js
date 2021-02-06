@@ -22,7 +22,7 @@ const questions = [
     type: "text",
     name: "database",
     message: "Database:",
-    validate: (value) => (value === " " ? "Database can't be empty" : true),
+    validate: (value) => (value === "" ? "Database can't be empty" : true),
   },
   {
     type: "text",
@@ -95,6 +95,8 @@ const questions = [
               name: "frequency",
               message: "Reload frequency (in seconds):",
               initial: 5,
+              validate: (value) =>
+                value === " " ? "Reload frequency can't be empty" : true,
             },
           ]);
 
